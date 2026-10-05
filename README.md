@@ -1,31 +1,8 @@
 # DataAnalyser
 
-<<<<<<< HEAD
 账无忧 Electron 财务数据分析客户端。Electron 负责桌面界面和用户操作的登录窗口；Python 本机服务负责账套会话、只读数据读取、核验和 JSON 快照生成。
 
 ## Electron 桌面客户端
-=======
-账无忧财务数据分析项目。仓库根目录包含 Electron 桌面客户端、Python 只读服务、独立的 C++ 迁移模块和旧 Excel 客户端。各部分职责见 [项目边界](docs/ARCHITECTURE.md)。
-
-## Electron 桌面客户端
-
-在 Windows 上安装 Node.js 22.12+（包含 npm）和 Python 3.10+，然后在本项目根目录运行：
-
-```powershell
-.\scripts\setup-local.ps1
-npm install
-npm run desktop
-```
-
-打开客户端后，点击“登录账无忧”，在弹出的登录窗口完成验证；返回客户端选择账套和月份，点击“刷新数据”。如果已有有效会话而本地服务未运行，点击“启动本地服务”。
-
-当前桌面版显示财务总览、月度趋势及 11 张受管原始数据表。它通过本机 JSON 接口读取现有只读服务，不运行 VBA。预算和账龄人工录入、六张图表的 DeepSeek 解读、年度及研发专用报表尚未迁入桌面界面；这些功能仍在现有 Excel 客户端中。C++ 核心位于 `cpp/`，目前未接入桌面版。
-
-会话和本地访问令牌仅保存在 `http_sessions/`、`runtime/`。Electron 渲染进程只接收已筛选的账套列表和报表数据；主进程只读取调用本地服务所需的访问令牌。
-
-## Excel 客户端
-### Windows 安装
->>>>>>> a6a901b16b65a84b641ecd7a55dd6be06740c1e8
 
 桌面客户端位于 `electron/`，通过本机只读服务获取账套和财务快照；界面不直接读取账无忧会话、访问令牌或本地注册表。
 
