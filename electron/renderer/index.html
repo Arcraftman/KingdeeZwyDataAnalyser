@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="zh-CN">
-<<<<<<< HEAD
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -43,54 +42,4 @@
   <dialog id="command-palette" class="command-palette"><div class="command-search">⌕ <input id="command-input" placeholder="输入命令、报表或搜索词"><kbd>Esc</kbd></div><div id="command-results" class="command-results"></div></dialog>
   <script type="module" src="scripts/app.js"></script>
   </body>
-=======
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DataAnalyser 财务看板</title>
-  <link rel="stylesheet" href="./style.css">
-  <script src="./app.js" defer></script>
-</head>
-<body>
-  <div class="shell">
-    <aside class="sidebar">
-      <div class="brand"><span class="brand-icon">D</span><div><strong>DataAnalyser</strong><small>财务数据工作台</small></div></div>
-      <div class="side-label">工作区</div>
-      <nav id="navigation" aria-label="报表导航"></nav>
-      <div class="side-foot">本地只读模式<br><span>财务数据来自已授权账套</span></div>
-    </aside>
-    <main class="main">
-      <header class="topbar">
-        <div><div class="eyebrow">FINANCE WORKSPACE</div><h1 id="page-title">财务总览</h1><p id="page-subtitle">选择账套与月份，查看本期财务数据。</p></div>
-        <div class="status" id="service-status"><span class="status-dot"></span><span>检查服务中</span></div>
-      </header>
-      <section class="controls" aria-label="数据选择">
-        <label>账套<select id="company"><option value="">请先登录账无忧</option></select></label>
-        <label>月份<input id="month" type="month"></label>
-        <button id="refresh" class="primary">刷新数据</button>
-        <button id="login" class="secondary">登录账无忧</button>
-        <button id="start-service" class="ghost">启动本地服务</button>
-      </section>
-      <div id="notice" class="notice" role="status" aria-live="polite"></div>
-      <section id="overview" class="view">
-        <div class="section-heading"><div><h2>经营概况</h2><p id="snapshot-note">登录并刷新后显示指标。</p></div><span class="pill" id="period-pill">未选择月份</span></div>
-        <div class="cards" id="metric-cards"></div>
-        <div class="panel chart-panel">
-          <div class="panel-head"><div><h2>月度利润趋势</h2><p>来自利润表月度明细</p></div><div class="legend"><span><i class="revenue"></i>营业收入</span><span><i class="cost"></i>营业成本</span><span><i class="profit"></i>净利润</span></div></div>
-          <div id="trend-chart" class="chart-empty">刷新后显示图表</div>
-        </div>
-        <div class="panel">
-          <div class="panel-head"><div><h2>数据说明</h2><p>判断口径与来源</p></div></div>
-          <div class="notes"><p>利润、资产负债和现金流数据来自原系统报表；本客户端不从凭证借贷合计推算利润。</p><p>出纳账来自现金与银行科目凭证，不代表未制证银行流水或银行对账结果。</p><p>本期报表仅供分析；读取成功不代表已审计或已结账。</p></div>
-        </div>
-      </section>
-      <section id="report-view" class="view hidden">
-        <div class="section-heading"><div><h2 id="report-title">报表</h2><p id="report-note">原系统数据</p></div><span class="pill" id="row-count">0 行</span></div>
-        <div class="panel table-panel"><div class="table-tools"><input id="filter" type="search" placeholder="搜索当前报表" aria-label="搜索当前报表"><span id="display-count"></span></div><div class="table-scroll"><table id="report-table"></table></div></div>
-      </section>
-    </main>
-  </div>
-</body>
->>>>>>> a6a901b16b65a84b641ecd7a55dd6be06740c1e8
 </html>

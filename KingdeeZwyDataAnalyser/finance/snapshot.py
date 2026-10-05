@@ -1,8 +1,5 @@
-<<<<<<<< HEAD:KingdeeZwyDataAnalyser/finance/snapshot.py
 """Read-only, company-scoped finance snapshots for the Electron client."""
-========
-"""Read-only, company-scoped finance snapshots shared by desktop and Excel clients."""
->>>>>>>> a6a901b16b65a84b641ecd7a55dd6be06740c1e8:python/data-analyser/src/snapshot.py
+
 from __future__ import annotations
 
 import json

@@ -10,20 +10,13 @@ import socket
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import urlsplit, parse_qs
 
-<<<<<<<< HEAD:KingdeeZwyDataAnalyser/service/serve.py
 from ..core.project import project_root
 from ..finance.snapshot import SCHEMA_VERSION, collect_snapshot, snapshot_json
 from ..finance.registry import load_accountbooks
 from ..finance.read_client import CheckFailure
 from ..finance.interpretation import interpret, interpretation_xml
 from ..auth.authorized_session import import_electron_authorization, reusable_accountbooks
-========
-from .project import project_root
-from .snapshot import SCHEMA_VERSION, collect_snapshot, spreadsheet_xml, snapshot_json
-from .read_client import CheckFailure
-from .registry import load_accountbooks
-from .interpretation import interpret, interpretation_xml
->>>>>>>> a6a901b16b65a84b641ecd7a55dd6be06740c1e8:python/data-analyser/src/serve.py
+
 
 
 class FinanceHTTPServer(HTTPServer):
