@@ -7,6 +7,14 @@ excel/*.xlsm
 runtime/
 dist/
 .pytest-tmp/
+<<<<<<< HEAD
 node_modules/
 build/
 .kdzda
+=======
+cpp/build/
+.vs/
+cpp/out/
+node_modules/
+build/
+>>>>>>> a6a901b16b65a84b641ecd7a55dd6be06740c1e8

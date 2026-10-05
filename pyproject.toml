@@ -17,11 +17,19 @@ dev = ["pytest>=8,<10"]
 kingdee-zwy-data-analyser = "KingdeeZwyDataAnalyser.cli:main"
 
 [tool.setuptools.packages.find]
+<<<<<<< HEAD
 where = ["."]
 include = ["KingdeeZwyDataAnalyser*"]
+=======
+where = ["python"]
+>>>>>>> a6a901b16b65a84b641ecd7a55dd6be06740c1e8
 
 [tool.setuptools.package-data]
 KingdeeZwyDataAnalyser = ["conf/*.json"]
 
 [tool.pytest.ini_options]
+<<<<<<< HEAD
 pythonpath = ["."]
+=======
+pythonpath = ["python"]
+>>>>>>> a6a901b16b65a84b641ecd7a55dd6be06740c1e8
