@@ -1,7 +1,8 @@
 """Read-only session loader."""
 import json
 from pathlib import Path
-from urllib.parse import urlparse, parse_qs
+from urllib.parse import parse_qs, urlparse
+
 
 def load_session(path: Path) -> tuple[str, str, str | None, str | None, str | None, str | None]:
         try:

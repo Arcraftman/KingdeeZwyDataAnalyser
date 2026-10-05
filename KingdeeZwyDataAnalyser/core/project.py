@@ -1,6 +1,6 @@
 """Resolve the standalone DataAnalyser workspace."""
-from pathlib import Path
 import os
+from pathlib import Path
 
 
 def project_root() -> Path:

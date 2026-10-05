@@ -3,20 +3,18 @@ import argparse
 import hmac
 import json
 import os
-from pathlib import Path
 import secrets
-import sys
 import socket
+import sys
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from urllib.parse import urlsplit, parse_qs
+from urllib.parse import parse_qs, urlsplit
 
-from ..core.project import project_root
-from ..finance.snapshot import SCHEMA_VERSION, collect_snapshot, snapshot_json
-from ..finance.registry import load_accountbooks
-from ..finance.read_client import CheckFailure
-from ..finance.interpretation import interpret, interpretation_xml
 from ..auth.authorized_session import import_electron_authorization, reusable_accountbooks
-
+from ..core.project import project_root
+from ..finance.interpretation import interpret, interpretation_xml
+from ..finance.read_client import CheckFailure
+from ..finance.registry import load_accountbooks
+from ..finance.snapshot import SCHEMA_VERSION, collect_snapshot, snapshot_json
 
 
 class FinanceHTTPServer(HTTPServer):
@@ -62,7 +60,6 @@ def main(argv=None):
                 return
             url = urlsplit(self.path)
             if url.path == "/health":
-<<<<<<<< HEAD:KingdeeZwyDataAnalyser/service/serve.py
                 self.send(200, json.dumps({"schema": SCHEMA_VERSION, "readOnly": True,
                                            "capabilities": ["companies", "snapshot-json"]}).encode())
                 return
@@ -79,25 +76,6 @@ def main(argv=None):
                     self.send(422, json.dumps({"error": str(exc)}, ensure_ascii=False).encode())
                 return
             if url.path != "/snapshot.json":
-========
-                self.send(200, json.dumps({"schema": SCHEMA_VERSION, "readOnly": True, "capabilities": ["companies", "snapshot-json"]}).encode())
-                return
-            if url.path == "/companies":
-                if url.query:
-                    self.send(400, b'{"error":"Unexpected query"}')
-                    return
-                try:
-                    books = load_accountbooks(project_root() / "runtime/registry/accountbooks.json")
-                    companies = [{"key": key, "name": book.name}
-                                 for key, book in books.items() if book.enabled]
-                    body = json.dumps({"schema": SCHEMA_VERSION, "companies": companies},
-                                      ensure_ascii=False).encode("utf-8")
-                    self.send(200, body)
-                except ValueError as exc:
-                    self.send(422, json.dumps({"error": str(exc)}, ensure_ascii=False).encode("utf-8"))
-                return
-            if url.path not in ("/snapshot", "/snapshot.json"):
->>>>>>>> a6a901b16b65a84b641ecd7a55dd6be06740c1e8:python/data-analyser/src/serve.py
                 self.send(404, b'{"error":"Not found"}')
                 return
             query = parse_qs(url.query)
@@ -106,14 +84,7 @@ def main(argv=None):
                 return
             try:
                 snapshot = collect_snapshot(project_root(), query["company"][0], query["month"][0])
-<<<<<<<< HEAD:KingdeeZwyDataAnalyser/service/serve.py
                 self.send(200, snapshot_json(snapshot))
-========
-                if url.path == "/snapshot.json":
-                    self.send(200, snapshot_json(snapshot))
-                else:
-                    self.send(200, spreadsheet_xml(snapshot), "application/xml; charset=utf-8")
->>>>>>>> a6a901b16b65a84b641ecd7a55dd6be06740c1e8:python/data-analyser/src/serve.py
             except (CheckFailure, ValueError) as exc:
                 self.send(422, json.dumps({"error": str(exc)}, ensure_ascii=False).encode())
             except Exception:

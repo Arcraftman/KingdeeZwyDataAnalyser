@@ -1,8 +1,8 @@
 """Small, strict registry for read-only company selection."""
-from dataclasses import dataclass
-from pathlib import Path
 import json
 import re
+from dataclasses import dataclass
+from pathlib import Path
 
 
 class RegistryError(ValueError):

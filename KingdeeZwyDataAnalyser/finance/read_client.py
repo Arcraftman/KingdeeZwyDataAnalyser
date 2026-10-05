@@ -16,6 +16,7 @@ from urllib.request import HTTPRedirectHandler, HTTPSHandler, Request, build_ope
 
 from ..auth.session import load_session
 from .registry import normalize_month
+
 AUXILIARY_ITEM_CLASSES = {"客户": 1, "供应商": 5}
 
 GET_PATHS = frozenset({

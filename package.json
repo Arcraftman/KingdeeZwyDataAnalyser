@@ -9,7 +9,8 @@
   },
   "scripts": {
     "desktop": "electron .",
-    "start": "electron ."
+    "start": "electron .",
+    "check": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/check/static.ps1"
   },
   "devDependencies": {
     "electron": "44.4.5"

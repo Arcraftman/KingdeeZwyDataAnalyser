@@ -48,7 +48,7 @@ try {
         & $FinancePython -m venv .kdzda
         if ($LASTEXITCODE -ne 0) { throw 'Could not create the .kdzda environment.' }
     }
-    & $VenvPython -m pip install 'openpyxl>=3.1,<4' 'requests>=2.31,<3'
+    & $VenvPython -m pip install --editable '.[dev]'
     if ($LASTEXITCODE -ne 0) { throw 'Dependency installation failed.' }
     Write-Host 'Python dependencies are ready. Run npm install, then npm run desktop.'
 } catch {

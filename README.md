@@ -25,6 +25,14 @@ Electron 不使用 Playwright 或脚本填写账号密码。授权完成后，Py
 .\scripts\configure\deepseek.ps1
 ```
 
+运行项目静态检查：
+
+```powershell
+npm run check
+```
+
+检查流程会扫描 Git 合并标记，使用 Ruff 检查 Python，再执行 Python 字节码编译和 Electron JavaScript 语法检查。首次使用或更新开发依赖后，重新运行 `scripts\bootstrap\setup-local.ps1`。
+
 本机只读服务监听 `127.0.0.1:18768`。`KingdeeZwyDataAnalyser/conf/finance_read_sources.json` 定义允许的财务读取接口，并随 Python 包发布。会话、访问令牌和密钥均在 `runtime/`，不进入 Git。
 
 项目根目录的 `electron/` 分为 `main/`、`preload/`、`renderer/`；`scripts/` 分为 `bootstrap/`、`run/`、`configure/`、`legacy/`；`runtime/` 分为 `auth/`、`registry/`、`service/`。

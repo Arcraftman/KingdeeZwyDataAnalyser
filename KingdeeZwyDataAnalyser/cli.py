@@ -2,16 +2,11 @@
 import argparse
 import getpass
 import json
-import os
 from pathlib import Path
-import subprocess
-import sys
-import time
 from urllib.request import Request, urlopen
 
 from .core.project import project_root
 from .service.serve import main as serve
-
 
 PORT = 18768
 

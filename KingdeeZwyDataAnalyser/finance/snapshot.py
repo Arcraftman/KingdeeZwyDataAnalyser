@@ -9,8 +9,8 @@ from decimal import Decimal
 from importlib.resources import files
 from pathlib import Path
 
+from .read_client import CheckFailure, ReadClient, check_identity, month_values, substitute
 from .registry import load_accountbooks, normalize_month
-from .read_client import ReadClient, CheckFailure, check_identity, month_values, substitute
 
 SCHEMA_VERSION = "2"
 MANAGED_SHEETS = (
@@ -52,7 +52,7 @@ def normalize_entries(vouchers):
         entries = voucher["entries"]
         numbers = [str(e.get("accountNumber") or str(e["accountName"]).split(" ", 1)[0]).split("_")[0] for e in entries]
         cash_only = bool(numbers) and all(n.startswith(("1001", "1002")) for n in numbers)
-        for index, (entry, account) in enumerate(zip(entries, numbers), 1):
+        for index, (entry, account) in enumerate(zip(entries, numbers, strict=True), 1):
             if not re.fullmatch(r"\d+", account) or entry["dc"] not in (1, -1):
                 raise CheckFailure("凭证科目或借贷方向无效")
             amount = Decimal(str(entry["amount"]))
@@ -202,45 +202,11 @@ def collect_snapshot(root: Path, company: str, month: str, client_factory=ReadCl
     return {"schema": SCHEMA_VERSION, "company": company, "month": month, "refreshed_at": refreshed, "sheets": {name: data[name] for name in MANAGED_SHEETS}}
 
 
-<<<<<<<< HEAD:KingdeeZwyDataAnalyser/finance/snapshot.py
 def snapshot_json(snapshot):
     """Electron JSON transport for managed financial snapshots."""
     sheets = snapshot["sheets"]
     if not set(sheets).issubset(MANAGED_SHEETS):
         raise CheckFailure("不允许传输未受管工作表")
-========
-def spreadsheet_xml(snapshot):
-    """Excel 2003 XML transport. Strings never become formulas or links."""
-    ns = "urn:schemas-microsoft-com:office:spreadsheet"
-    ET.register_namespace("ss", ns)
-    wb = ET.Element(f"{{{ns}}}Workbook")
-    for name, rows in snapshot["sheets"].items():
-        if name not in MANAGED_SHEETS:
-            raise CheckFailure("不允许覆盖人工输入工作表")
-        ws = ET.SubElement(wb, f"{{{ns}}}Worksheet", {f"{{{ns}}}Name": name})
-        table = ET.SubElement(ws, f"{{{ns}}}Table")
-        for values in rows:
-            row = ET.SubElement(table, f"{{{ns}}}Row")
-            for column, value in enumerate(values):
-                cell = ET.SubElement(row, f"{{{ns}}}Cell")
-                if value is None:
-                    continue
-                typ = "Boolean" if isinstance(value, bool) else "Number" if isinstance(value, (int, float)) else "String"
-                text = str(int(value)) if isinstance(value, bool) else str(value)
-                if name in ("凭证明细", "出纳账") and column == 2 and re.fullmatch(r"\d{4}-\d{2}-\d{2}", text):
-                    typ, text = "DateTime", text + "T00:00:00.000"
-                data = ET.SubElement(cell, f"{{{ns}}}Data", {f"{{{ns}}}Type": typ})
-                data.text = re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f]", "", text)
-    return ET.tostring(wb, encoding="utf-8", xml_declaration=True)
-
-
-
-def snapshot_json(snapshot):
-    """JSON transport for the desktop client; Excel keeps spreadsheet_xml."""
-    sheets = snapshot["sheets"]
-    if not set(sheets).issubset(MANAGED_SHEETS):
-        raise CheckFailure("不允许覆盖人工输入工作表")
->>>>>>>> a6a901b16b65a84b641ecd7a55dd6be06740c1e8:python/data-analyser/src/snapshot.py
     payload = {
         "schema": snapshot["schema"],
         "company": snapshot["company"],
