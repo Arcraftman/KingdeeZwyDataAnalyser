@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self';">
+    <title>财务数据分析</title>
+  <link rel="stylesheet" href="styles/app.css">
+  <link rel="stylesheet" href="styles/states.css">
+  <link rel="stylesheet" href="styles/window.css">
+  </head>
+  <body><div class="app-shell">
+    <div class="window-bar"><div class="window-product"><b>财</b><span>财务工作台</span></div><span class="window-title">账无忧数据分析</span></div>
+    <aside class="sidebar">
+      <div class="brand"><b>财</b><span>财务工作台</span></div><button id="new-analysis" class="primary wide">＋ 新建分析</button>
+      <nav id="primary-nav" class="primary-nav"><button data-view="overview" class="active">⌂ 概览</button><button data-view="reports">▤ 财务报表</button><button data-view="recent">◷ 最近分析</button></nav>
+      <div class="tree-heading"><span>报表</span><small id="report-count">0</small></div><nav id="report-tree" class="report-tree"><p class="tree-empty">刷新数据后显示报表</p></nav>
+      <div class="sidebar-bottom">
+        <div class="account-card"><span class="account-avatar">账</span><span><strong id="sidebar-company">账无忧</strong><small id="sidebar-connection">正在恢复登录</small></span></div>
+        <button id="open-login" class="sidebar-action"><span>↗</span>登录账无忧</button>
+        <button id="refresh" class="sidebar-action" disabled><span class="action-icon">↻</span>刷新数据</button>
+        <button data-view="settings" class="sidebar-action"><span>⚙</span>设置</button>
+        <small class="readonly-note">本机只读模式</small>
+      </div>
+    </aside>
+    <section class="workspace">
+      <header class="topbar"><div class="title-block"><p id="breadcrumb">财务工作台 / 概览</p><h1 id="view-title">财务分析</h1></div><div class="top-actions"><button id="command-trigger" class="search-trigger">⌕ <span>搜索或运行命令</span><kbd>Ctrl K</kbd></button><span id="service-state" class="state offline">正在连接</span></div></header>
+      <div id="tab-strip" class="tab-strip"></div>
+      <main id="content">
+        <section id="toolbar" class="toolbar"><label>账套<select id="company" disabled><option>正在恢复登录</option></select></label><label>月份<input id="month" type="month"></label></section>
+        <section id="login-progress" class="login-progress"><div><strong id="progress-label">正在检查登录状态</strong><span id="progress-detail">请稍候</span></div><div class="progress-track"><i id="progress-value"></i></div></section><p id="message" class="message" role="status"></p>
+        <section id="empty-state" class="empty-state"><div class="empty-icon">⌁</div><h2>选择账套开始分析</h2><p>登录恢复后选择月份并刷新，报表会出现在左侧。</p></section>
+        <section id="overview-view" class="view" hidden><section id="summary" class="summary"></section><section class="panel dashboard"><div class="panel-heading"><div><h2>经营统计</h2><p>利润、现金收支与往来余额</p></div><span id="dashboard-month"></span></div><section id="metrics" class="metrics"></section><section id="charts" class="chart-grid"></section></section></section>
+        <section id="report-view" class="view panel" hidden><div class="panel-heading"><div><h2 id="report-title">财务报表</h2><p id="report-note"></p></div><span id="refreshed-at"></span></div><div class="table-tools"><input id="table-search" placeholder="筛选当前报表"><span id="row-count"></span></div><div class="table-wrap"><table id="table"></table></div></section>
+        <section id="recent-view" class="view panel" hidden><div class="panel-heading"><div><h2>最近分析</h2><p>保存在本机的最近账套与期间</p></div></div><div id="recent-list" class="recent-list"></div></section>
+        <section id="settings-view" class="view panel" hidden><div class="panel-heading"><div><h2>设置</h2><p>桌面客户端偏好</p></div></div><div class="settings-card"><label><span>启动后自动恢复登录</span><input id="auto-restore" type="checkbox" checked></label><label><span>显示右侧检查器</span><input id="show-inspector" type="checkbox" checked></label><button id="clear-recents" class="danger">清空最近分析</button></div></section>
+      </main>
+      <aside id="inspector" class="inspector"><div class="inspector-title"><h2>检查器</h2><button id="pin-tab" class="icon-button">☆</button></div><section><small>当前视图</small><strong id="inspector-view">概览</strong></section><section><small>当前账套</small><strong id="inspector-company">尚未选择</strong></section><section><small>数据期间</small><strong id="inspector-month">—</strong></section><section><small>选中内容</small><div id="inspector-selection" class="selection">尚未选择表格行</div></section><section><small>数据状态</small><p id="inspector-status">正在恢复本地会话</p></section></aside>
+      <footer class="statusbar"><span id="bottom-status">● 正在恢复登录状态</span><span>只读</span><span id="bottom-refreshed">尚未刷新</span></footer>
+    </section>
+  </div>
+  <dialog id="command-palette" class="command-palette"><div class="command-search">⌕ <input id="command-input" placeholder="输入命令、报表或搜索词"><kbd>Esc</kbd></div><div id="command-results" class="command-results"></div></dialog>
+  <script type="module" src="scripts/app.js"></script>
+  </body>
+</html>

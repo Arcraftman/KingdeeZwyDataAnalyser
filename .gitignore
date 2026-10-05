@@ -5,6 +5,8 @@ __pycache__/
 excel/*.xlsx
 excel/*.xlsm
 runtime/
-http_sessions/
 dist/
 .pytest-tmp/
+node_modules/
+build/
+.kdzda

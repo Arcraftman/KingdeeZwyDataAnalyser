@@ -1,30 +1,30 @@
 # DataAnalyser
 
-独立的账无忧 Excel 财务数据看板项目。生成 22 张工作表的空白模板，在 Windows 桌面 Excel 中安装刷新宏，通过本机只读服务读取已授权账套，并可生成 DeepSeek 图表解读。项目运行不依赖 ReceiptUploader 包。
+账无忧 Electron 财务数据分析客户端。Electron 负责桌面界面和用户操作的登录窗口；Python 本机服务负责账套会话、只读数据读取、核验和 JSON 快照生成。
 
-## Windows 安装
+## Electron 桌面客户端
 
-在本目录打开 PowerShell：
+桌面客户端位于 `electron/`，通过本机只读服务获取账套和财务快照；界面不直接读取账无忧会话、访问令牌或本地注册表。
+
+先安装 Node.js 22.12+，并完成 Python 环境：
 
 ```powershell
-.\scripts\setup-local.ps1
-.\.venv\Scripts\python.exe .\scripts\launch.py template
-.\scripts\install-excel.ps1
+.\scripts\bootstrap\setup-local.ps1
+npm install
+npm run desktop
 ```
 
-Excel 需允许“信任对 VBA 工程对象模型的访问”才能安装宏；组织的宏运行策略仍适用。安装脚本生成 `excel/finance.xlsm`，不会覆盖已有文件。仅生成普通 `.xlsx` 时无需 Excel。
+打开客户端后，点击“登录账无忧”，在授权窗口中自行完成登录和验证，再回到客户端点击“完成授权”。随后选择账套和月份并刷新数据。客户端提供经营统计、月度分析图和原始报表数据表。
 
-打开 `excel/finance.xlsm`，点击“登录账无忧”，在浏览器完成验证。登录后，填写控制台的 `company_数字` 和 `YYYY-MM`，点击“刷新财务数据”。可在看板中配置 DeepSeek API Key 并生成解读。账号密码不写入工作簿；会话、访问令牌和密钥都保存在本项目的 `http_sessions/` 与 `runtime/`，不进入 Git。
+Electron 不使用 Playwright 或脚本填写账号密码。授权完成后，Python 使用纯 HTTP 的账套发现、会话交换和已授权会话复用逻辑；财务数据仍由 Python 服务执行账套身份验证、只读请求和核对后返回。
 
 ## 命令
 
 ```powershell
-.\.venv\Scripts\python.exe .\scripts\launch.py template --output .\excel\finance-template.xlsx --overwrite
-.\.venv\Scripts\python.exe .\scripts\launch.py login
-.\.venv\Scripts\python.exe .\scripts\launch.py serve
-.\.venv\Scripts\python.exe .\scripts\launch.py configure-deepseek
+.\.kdzda\Scripts\python.exe .\scripts\run\launch.py serve
+.\scripts\configure\deepseek.ps1
 ```
 
-本机只读服务监听 `127.0.0.1:18768`。`config/finance_read_sources.json` 定义允许的财务读取接口；模板生成不会读取会计数据。工作簿刷新需要有效的账无忧登录会话。DeepSeek 使用自己的 API Key，仅发送看板汇总数值。
+本机只读服务监听 `127.0.0.1:18768`。`KingdeeZwyDataAnalyser/conf/finance_read_sources.json` 定义允许的财务读取接口，并随 Python 包发布。会话、访问令牌和密钥均在 `runtime/`，不进入 Git。
 
-原 ReceiptUploader 的财务源码与入口已移除；本项目有自己的包、配置、命令、Excel 宏和运行目录。
+项目根目录的 `electron/` 分为 `main/`、`preload/`、`renderer/`；`scripts/` 分为 `bootstrap/`、`run/`、`configure/`、`legacy/`；`runtime/` 分为 `auth/`、`registry/`、`service/`。

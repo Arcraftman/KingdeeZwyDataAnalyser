@@ -1,0 +1,17 @@
+{
+  "name": "kingdee-data-analyser-desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "账无忧财务数据分析桌面客户端",
+  "main": "electron/main/app.cjs",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "desktop": "electron .",
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "44.4.5"
+  }
+}

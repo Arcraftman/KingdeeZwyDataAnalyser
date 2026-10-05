@@ -1,0 +1,129 @@
+.app-shell {
+  grid-template-rows: 38px minmax(0, 1fr);
+}
+
+.window-bar {
+  position: relative;
+  z-index: 20;
+  grid-column: 1 / -1;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  height: 38px;
+  padding: 0 150px 0 12px;
+  border-bottom: 1px solid #dedee1;
+  background: #f3f3f4;
+  color: #55565b;
+  font-size: 12px;
+  user-select: none;
+  -webkit-app-region: drag;
+}
+
+.window-product {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.window-product b {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  background: #202124;
+  color: #fff;
+  font-size: 11px;
+}
+
+.window-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #727378;
+}
+
+.sidebar {
+  grid-column: 1;
+  grid-row: 2;
+  min-height: 0;
+}
+
+.workspace {
+  grid-column: 2;
+  grid-row: 2;
+  min-height: 0;
+}
+
+.sidebar-bottom {
+  padding-top: 8px;
+  border-top: 1px solid #dddddf;
+}
+
+.account-card {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  align-items: center;
+  gap: 9px;
+  padding: 7px 9px 9px;
+}
+
+.account-card > span:last-child {
+  min-width: 0;
+}
+
+.account-card strong,
+.account-card small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.account-card strong {
+  color: #303136;
+  font-size: 12px;
+}
+
+.account-card small {
+  margin-top: 2px;
+  padding: 0;
+  color: #85868b;
+  font-size: 10px;
+}
+
+.account-avatar {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #d8d8dc;
+  border-radius: 8px;
+  background: #fff;
+  color: #37383c;
+  font-weight: 700;
+}
+
+.sidebar-bottom .sidebar-action {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+}
+
+.sidebar-bottom .sidebar-action > span {
+  width: 16px;
+  text-align: center;
+  color: #6f7075;
+}
+
+.sidebar-bottom .sidebar-action:disabled {
+  opacity: .45;
+  cursor: default;
+}
+
+.sidebar-bottom .readonly-note {
+  padding-top: 5px;
+  font-size: 10px;
+}

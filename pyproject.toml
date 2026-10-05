@@ -3,24 +3,25 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "data-analyser"
+name = "kingdee-zwy-data-analyser"
 version = "0.1.0"
-description = "Standalone Kdzwy Excel finance dashboard"
+description = "Kingdee Zwy Electron finance dashboard"
 requires-python = ">=3.10"
 dependencies = ["openpyxl>=3.1,<4", "requests>=2.31,<3"]
 
 [project.optional-dependencies]
-login = ["playwright>=1.40"]
+login = []
 dev = ["pytest>=8,<10"]
 
 [project.scripts]
-data-analyser = "data_analyser.cli:main"
+kingdee-zwy-data-analyser = "KingdeeZwyDataAnalyser.cli:main"
 
 [tool.setuptools.packages.find]
-where = ["src"]
+where = ["."]
+include = ["KingdeeZwyDataAnalyser*"]
 
 [tool.setuptools.package-data]
-data_analyser = ["template_layout.json", "rd_template.xlsx"]
+KingdeeZwyDataAnalyser = ["conf/*.json"]
 
 [tool.pytest.ini_options]
-pythonpath = ["src"]
+pythonpath = ["."]
